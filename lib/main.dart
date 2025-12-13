@@ -73,8 +73,8 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   bool _initializationComplete = false;
   bool _minDurationPassed = false;
-  final int _minSplashDuration = 5000; // 2 secondes minimum
-  final int _maxSplashDuration = 6000; // 5 secondes maximum (sécurité)
+  final int _minSplashDuration = 4000; // 4 secondes minimum
+  final int _maxSplashDuration = 6000; // 6 secondes maximum (sécurité)
 
   @override
   void initState() {

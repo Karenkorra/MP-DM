@@ -236,8 +236,6 @@ class AudioPlayerService {
   Future<void> _stopAndRelease() async {
     try {
       await _audioPlayer.stop();
-      // Note: Dans audioplayers, release() n'est pas disponible
-      // On utilise simplement stop() et dispose() quand nécessaire
       _currentState = PlayerState.stopped;
       _currentUrl = null;
       print('⏹️ Lecture arrêtée et ressources libérées');

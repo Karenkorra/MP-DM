@@ -78,7 +78,7 @@ class PlayerControls extends StatelessWidget {
           border: Border(top: BorderSide(color: Colors.grey[800]!)),
         ),
         child: Column(
-          mainAxisSize: MainAxisSize.min, // IMPORTANT: empêche l'expansion
+          mainAxisSize: MainAxisSize.min,
           children: [
             // Barre de progression
             ProgressBar(
@@ -134,10 +134,10 @@ class PlayerControls extends StatelessWidget {
       );
     }
 
-    // Version expanded (pour PlayerView)
+
     return SingleChildScrollView(
       child: Column(
-        mainAxisSize: MainAxisSize.min, // IMPORTANT: empêche l'expansion
+        mainAxisSize: MainAxisSize.min,
         children: [
           // Informations de la piste
           if (track != null) ...[
@@ -321,7 +321,7 @@ class _ProgressBarState extends State<ProgressBar> {
     final durationText = _formatDuration(duration);
 
     return Column(
-      mainAxisSize: MainAxisSize.min, // AJOUTÉ: empêche l'expansion
+      mainAxisSize: MainAxisSize.min,
       children: [
         // Slider pour la progression
         SliderTheme(

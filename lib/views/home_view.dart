@@ -50,7 +50,7 @@ class HomeView extends StatelessWidget {
               ),
             ),
 
-            // Body avec Expanded - LE SEUL Expanded dans cette Column
+            // Body avec Expanded
             Expanded(
               child: Consumer<HomeViewModel>(
                 builder: (context, viewModel, child) {
@@ -124,7 +124,7 @@ class HomeView extends StatelessWidget {
 
                   return ListView.builder(
                     itemCount: tracks.length,
-                    padding: const EdgeInsets.symmetric(vertical: 8), // Ajout de padding
+                    padding: const EdgeInsets.symmetric(vertical: 8),
                     itemBuilder: (context, index) {
                       final track = tracks[index];
                       return Padding(

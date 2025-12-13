@@ -26,9 +26,9 @@ class MoodCard extends StatelessWidget {
         onTap: onTap,
         borderRadius: BorderRadius.circular(16),
         child: Padding(
-          padding: const EdgeInsets.all(12), // Réduit de 16 à 12
+          padding: const EdgeInsets.all(12),
           child: Column(
-            mainAxisSize: MainAxisSize.min, // IMPORTANT : Empêche l'expansion
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // Emoji - taille réduite
@@ -37,17 +37,17 @@ class MoodCard extends StatelessWidget {
                 alignment: Alignment.center,
                 child: Text(
                   mood.emoji,
-                  style: const TextStyle(fontSize: 32), // Réduit de 40 à 32
+                  style: const TextStyle(fontSize: 32),
                 ),
               ),
 
-              const SizedBox(height: 6), // Réduit de 8 à 6
+              const SizedBox(height: 6),
 
               // Nom
               Text(
                 mood.name,
                 style: const TextStyle(
-                  fontSize: 14, // Réduit de 16 à 14
+                  fontSize: 14,
                   fontWeight: FontWeight.bold,
                 ),
                 textAlign: TextAlign.center,
@@ -56,7 +56,7 @@ class MoodCard extends StatelessWidget {
               ),
 
               // Genres
-              const SizedBox(height: 6), // Réduit de 8 à 6
+              const SizedBox(height: 6),
               Container(
                 height: 40, // Hauteur fixe pour les chips
                 child: Wrap(
@@ -68,11 +68,11 @@ class MoodCard extends StatelessWidget {
                       .map((genre) => Chip(
                     label: Text(
                       genre,
-                      style: const TextStyle(fontSize: 9), // Réduit
+                      style: const TextStyle(fontSize: 9),
                     ),
                     backgroundColor: mood.color.withOpacity(0.1),
                     labelStyle: TextStyle(
-                      fontSize: 9, // Réduit de 10 à 9
+                      fontSize: 9,
                       color: mood.color,
                     ),
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,

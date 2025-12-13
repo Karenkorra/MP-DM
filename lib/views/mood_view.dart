@@ -53,7 +53,7 @@ class MoodView extends StatelessWidget {
               ),
               const SizedBox(height: 12),
 
-              // Grille de moods - CORRECTION PRINCIPALE
+              // Grille de moods
               Expanded(
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -95,7 +95,7 @@ class MoodView extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 SizedBox(
-                  height: 60, // Hauteur réduite
+                  height: 60,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: moodViewModel.recentMoods.length,

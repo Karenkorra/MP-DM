@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import '../models/track.dart';
 
 class SoundCloudService {
-  // Clé client officielle (celle que vous avez devrait fonctionner)
+  // Clé client officielle
   static const String _clientId = 'iZIs9mchVcX5lhVRyQGGAYlNPVldzAoX';
 
   Future<List<Track>> searchTracks(String query) async {
@@ -13,12 +13,12 @@ class SoundCloudService {
     print('🎵 SoundCloud recherche: "$query"');
 
     try {
-      // Utilisez l'API v2 avec des paramètres optimisés
+
       final url = Uri.parse(
           'https://api-v2.soundcloud.com/search/tracks'
               '?q=${Uri.encodeQueryComponent(query)}'
               '&client_id=$_clientId'
-              '&limit=8'  // Petit nombre pour plus de fiabilité
+              '&limit=8'
               '&offset=0'
               '&linked_partitioning=1'
       );

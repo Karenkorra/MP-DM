@@ -95,7 +95,7 @@ class PlayerView extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
-          // Bouton playlist (optionnel)
+          // Bouton playlist
           if (viewModel.playlist.isNotEmpty)
             IconButton(
               icon: const Icon(Icons.queue_music),
@@ -206,8 +206,8 @@ class PlayerView extends StatelessWidget {
                         // Source info
                         Container(
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 10, // Réduit de 12 à 10
-                            vertical: 5, // Réduit de 6 à 5
+                            horizontal: 10,
+                            vertical: 5,
                           ),
                           decoration: BoxDecoration(
                             color: sourceColor.withOpacity(0.2),
@@ -227,7 +227,7 @@ class PlayerView extends StatelessWidget {
                                 size: 14,
                                 color: sourceColor,
                               ),
-                              const SizedBox(width: 4), // Réduit de 6 à 4
+                              const SizedBox(width: 4),
                               Text(
                                 sourceName,
                                 style: TextStyle(
@@ -316,7 +316,7 @@ class PlayerView extends StatelessWidget {
           Expanded(
             flex: 1,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16), // Ajout d'un padding horizontal
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: PlayerControls(expanded: true),
             ),
           ),
@@ -327,8 +327,8 @@ class PlayerView extends StatelessWidget {
 
   Widget _buildAlbumArtPlaceholder(Color color) {
     return Container(
-      width: 250, // Réduit de 280 à 250
-      height: 250, // Réduit de 280 à 250
+      width: 250,
+      height: 250,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
@@ -342,14 +342,14 @@ class PlayerView extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: color.withOpacity(0.3),
-            blurRadius: 15, // Réduit de 20 à 15
-            spreadRadius: 3, // Réduit de 5 à 3
+            blurRadius: 15,
+            spreadRadius: 3,
           ),
         ],
       ),
       child: Icon(
         Icons.music_note,
-        size: 70, // Réduit de 80 à 70
+        size: 70,
         color: Colors.white.withOpacity(0.9),
       ),
     );
@@ -361,7 +361,7 @@ class PlayerView extends StatelessWidget {
     required Color color,
   }) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5), // Réduit
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
         borderRadius: BorderRadius.circular(16),
@@ -375,7 +375,7 @@ class PlayerView extends StatelessWidget {
             size: 14,
             color: color,
           ),
-          const SizedBox(width: 4), // Réduit de 6 à 4
+          const SizedBox(width: 4),
           Text(
             label,
             style: TextStyle(

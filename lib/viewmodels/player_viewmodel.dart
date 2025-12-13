@@ -126,7 +126,6 @@ class PlayerViewModel extends ChangeNotifier {
       _currentDuration = null;
       _isPlaying = false;
 
-      // Si c'est une erreur d'asset, essayer la suivante
       if (e.toString().contains('Unable to load asset') && hasNext) {
         print('🔄 Tentative lecture suivante...');
         await Future.delayed(Duration(milliseconds: 500));
@@ -335,14 +334,14 @@ class PlayerViewModel extends ChangeNotifier {
     return _playlist[currentIndex - 1];
   }
 
-  // NOUVELLE MÉTHODE : Réinitialiser la progression
+  //MÉTHODE : Réinitialiser la progression
   void resetProgress() {
     _currentPosition = Duration.zero;
     _currentDuration = null;
     notifyListeners();
   }
 
-  // NOUVELLE MÉTHODE : Obtenir le pourcentage de progression
+  // MÉTHODE : Obtenir le pourcentage de progression
   double get progressPercentage {
     if (_currentDuration == null || _currentDuration!.inMilliseconds == 0) {
       return 0.0;
@@ -355,7 +354,7 @@ class PlayerViewModel extends ChangeNotifier {
     return _currentPosition!.inMilliseconds / _currentDuration!.inMilliseconds;
   }
 
-  // NOUVELLE MÉTHODE : Obtenir le temps restant
+  // MÉTHODE : Obtenir le temps restant
   Duration? get remainingTime {
     if (_currentDuration == null || _currentPosition == null) {
       return null;

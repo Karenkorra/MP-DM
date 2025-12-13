@@ -9,6 +9,8 @@ class Mood {
   final List<String> recommendedGenres;
   final DateTime createdAt;
 
+
+  // Construit une instance de Mood avec toutes les informations nécessaires
   Mood({
     required this.id,
     required this.name,
@@ -18,7 +20,7 @@ class Mood {
     required this.createdAt,
   });
 
-  // Moods prédéfinis pour phase 1
+  //Une liste statique d’humeurs prédéfinies  pour la première phase du projet
   static final List<Mood> predefinedMoods = [
     Mood(
       id: 'happy',

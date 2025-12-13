@@ -62,8 +62,7 @@ class HomeViewModel extends ChangeNotifier {
         if (mood.id == 'chill' && track.bpm! < 100) return true;
       }
 
-      // 4. Pour les tracks locaux de votre JSON, ils sont déjà associés à un mood
-      // Le LocalMusicService les a déjà filtrés, donc on les inclut tous
+      // 4. Pour les tracks locaux de dana JSON sont déjà associés à un mood
       if (track.isLocal) {
         // On suppose que les tracks locaux retournés par getTracksByMoodObject
         // sont déjà corrects pour le mood
@@ -120,11 +119,11 @@ class HomeViewModel extends ChangeNotifier {
     _availableMoods = moodIds.map((id) {
       final metadata = _localMusicService.getMoodMetadata(id);
 
-      // Utiliser les couleurs hexadécimales de votre JSON
+      // couleurs hexadécimales
       Color parseColor(String hexColor) {
         hexColor = hexColor.replaceAll('#', '');
         if (hexColor.length == 6) {
-          hexColor = 'FF$hexColor'; // Ajouter alpha
+          hexColor = 'FF$hexColor';
         }
         return Color(int.parse(hexColor, radix: 16));
       }
@@ -134,7 +133,7 @@ class HomeViewModel extends ChangeNotifier {
         name: metadata?['name'] ?? id,
         emoji: metadata?['emoji'] ?? '🎵',
         color: metadata?['color'] != null
-            ? parseColor(metadata!['color'])  // metadata['color'] est déjà une Color, pas un String
+            ? parseColor(metadata!['color'])
             : _getDefaultMoodColor(id),
         recommendedGenres: List<String>.from(metadata?['genres'] ?? []),
         createdAt: DateTime.now(),
@@ -153,7 +152,7 @@ class HomeViewModel extends ChangeNotifier {
         return Colors.blue;
       case 'energetic':
         return Colors.orange;
-      case 'relaxed': // Note: dans votre JSON c'est "relaxed", dans Mood c'est "chill"
+      case 'relaxed':
       case 'chill':
         return Colors.green;
       case 'romantic':
@@ -345,7 +344,7 @@ class HomeViewModel extends ChangeNotifier {
     await checkConnectivity();
   }
 
-  // Nouvelle méthode pour sélectionner une humeur par son ID
+  // Méthode pour sélectionner une humeur par son ID
   Future<void> selectMoodById(String moodId) async {
     final mood = _availableMoods.firstWhere(
           (m) => m.id == moodId,

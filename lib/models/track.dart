@@ -15,6 +15,8 @@ class Track {
   final int? year;
   final String? genre;
 
+
+  // Crée un Track et applique les valeurs par défaut si nécessaire.
   Track({
     required this.id,
     required this.title,
@@ -55,7 +57,6 @@ class Track {
       artist: artist,
       duration: duration,
       thumbnailUrl: thumbnailAsset,
-      // IMPORTANT: Ne pas mettre "assets/" au début, audioplayers l'ajoute automatiquement
       audioUrl: 'asset://music/$moodFolder/$filename',
       source: 'local',
       isLocal: true,
@@ -99,7 +100,7 @@ class Track {
     );
   }
 
-  // Méthodes statiques pour les valeurs par défaut
+  // Méthodes statiques pour retourner la couleur selon la source.
   static Color _getDefaultColor(String source) {
     switch (source.toLowerCase()) {
       case 'soundcloud':
@@ -119,6 +120,7 @@ class Track {
     }
   }
 
+  // Retourne le nom lisible de la source.
   static String _getDefaultSourceName(String source) {
     switch (source.toLowerCase()) {
       case 'soundcloud':
@@ -149,7 +151,7 @@ class Track {
     return audioUrl;
   }
 
-  // Méthode pour convertir en Map (utile pour la sauvegarde)
+  // Méthode pour convertir en Map
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -166,7 +168,7 @@ class Track {
     };
   }
 
-  // Factory pour créer depuis une Map
+  // Crée un Track depuis une Map.
   factory Track.fromMap(Map<String, dynamic> map) {
     return Track(
       id: map['id'] ?? '',
@@ -185,7 +187,7 @@ class Track {
     );
   }
 
-  // Méthode pour copier avec des modifications
+  // Copie le Track avec des valeurs modifiées.
   Track copyWith({
     String? id,
     String? title,
@@ -231,6 +233,7 @@ class Track {
     return other is Track && other.id == id && other.source == source;
   }
 
+  // Génère le hash du Track.
   @override
   int get hashCode => id.hashCode ^ source.hashCode;
 }
