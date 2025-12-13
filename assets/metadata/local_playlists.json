@@ -1,0 +1,769 @@
+{
+  "mood_playlists": [
+    {
+      "id": "happy",
+      "name": "Heureux",
+      "emoji": "🎉",
+      "genres": ["Pop", "Disco", "Funk"],
+      "description": "Good vibes, énergie positive",
+      "color": "#FFD700",
+      "tracks": [
+        {
+          "id": "happy_1",
+          "filename": "dua_lipa_dont_start_now.mp3",
+          "title": "Don't Start Now",
+          "artist": "Dua Lipa",
+          "duration": 183,
+          "thumbnail": "",
+          "bpm": 124,
+          "year": 2019,
+          "genre": "Pop"
+        },
+        {
+          "id": "happy_2",
+          "filename": "pharrell_williams_happy.mp3",
+          "title": "Happy",
+          "artist": "Pharrell Williams",
+          "duration": 233,
+          "thumbnail": "",
+          "bpm": 160,
+          "year": 2013,
+          "genre": "Pop"
+        },
+        {
+          "id": "happy_3",
+          "filename": "abba_dancing_queen.mp3",
+          "title": "Dancing Queen",
+          "artist": "ABBA",
+          "duration": 232,
+          "thumbnail": "",
+          "bpm": 101,
+          "year": 1976,
+          "genre": "Disco"
+        },
+        {
+          "id": "happy_4",
+          "filename": "daft_punk_get_lucky.mp3",
+          "title": "Get Lucky",
+          "artist": "Daft Punk ft. Pharrell Williams",
+          "duration": 248,
+          "thumbnail": "",
+          "bpm": 116,
+          "year": 2013,
+          "genre": "Disco"
+        },
+        {
+          "id": "happy_5",
+          "filename": "bruno_mars_treasure.mp3",
+          "title": "Treasure",
+          "artist": "Bruno Mars",
+          "duration": 178,
+          "thumbnail": "",
+          "bpm": 116,
+          "year": 2012,
+          "genre": "Funk"
+        },
+        {
+          "id": "happy_6",
+          "filename": "michael_jackson_dont_stop.mp3",
+          "title": "Don't Stop 'Til You Get Enough",
+          "artist": "Michael Jackson",
+          "duration": 235,
+          "thumbnail": "",
+          "bpm": 112,
+          "year": 1979,
+          "genre": "Disco"
+        },
+        {
+          "id": "happy_7",
+          "filename": "the_weeknd_blinding_lights.mp3",
+          "title": "Blinding Lights",
+          "artist": "The Weeknd",
+          "duration": 200,
+          "thumbnail": "",
+          "bpm": 171,
+          "year": 2019,
+          "genre": "Pop"
+        },
+        {
+          "id": "happy_8",
+          "filename": "earth_wind_fire_september.mp3",
+          "title": "September",
+          "artist": "Earth, Wind & Fire",
+          "duration": 215,
+          "thumbnail": "",
+          "bpm": 126,
+          "year": 1978,
+          "genre": "Disco"
+        },
+        {
+          "id": "happy_9",
+          "filename": "katy_perry_firework.mp3",
+          "title": "Firework",
+          "artist": "Katy Perry",
+          "duration": 227,
+          "thumbnail": "",
+          "bpm": 124,
+          "year": 2010,
+          "genre": "Pop"
+        },
+        {
+          "id": "happy_10",
+          "filename": "maroon_5_sugar.mp3",
+          "title": "Sugar",
+          "artist": "Maroon 5",
+          "duration": 235,
+          "thumbnail": "",
+          "bpm": 120,
+          "year": 2014,
+          "genre": "Pop"
+        },
+        {
+          "id": "happy_11",
+          "filename": "lady_gaga_stupid_love.mp3",
+          "title": "Stupid Love",
+          "artist": "Lady Gaga",
+          "duration": 193,
+          "thumbnail": "",
+          "bpm": 118,
+          "year": 2020,
+          "genre": "Pop"
+        },
+        {
+          "id": "happy_12",
+          "filename": "bee_gees_stayin_alive.mp3",
+          "title": "Stayin' Alive",
+          "artist": "Bee Gees",
+          "duration": 285,
+          "thumbnail": "",
+          "bpm": 104,
+          "year": 1977,
+          "genre": "Disco"
+        },
+        {
+          "id": "happy_13",
+          "filename": "calvin_harris_feel_so_close.mp3",
+          "title": "Feel So Close",
+          "artist": "Calvin Harris",
+          "duration": 219,
+          "thumbnail": "",
+          "bpm": 128,
+          "year": 2011,
+          "genre": "Pop"
+        }
+      ]
+    },
+    {
+      "id": "sad",
+      "name": "Triste",
+      "emoji": "🌧",
+      "genres": ["Blues", "Jazz", "Soul"],
+      "description": "Mélancolie douce, émotions profondes",
+      "color": "#1E90FF",
+      "tracks": [
+        {
+          "id": "sad_1",
+          "filename": "bb_king_the_thrill_is_gone.mp3",
+          "title": "The Thrill Is Gone",
+          "artist": "B.B. King",
+          "duration": 323,
+          "thumbnail": "",
+          "bpm": 72,
+          "year": 1969,
+          "genre": "Blues"
+        },
+        {
+          "id": "sad_2",
+          "filename": "etta_james_at_last.mp3",
+          "title": "At Last",
+          "artist": "Etta James",
+          "duration": 181,
+          "thumbnail": "",
+          "bpm": 84,
+          "year": 1960,
+          "genre": "Blues"
+        },
+        {
+          "id": "sad_3",
+          "filename": "billie_holiday_gloomy_sunday.mp3",
+          "title": "Gloomy Sunday",
+          "artist": "Billie Holiday",
+          "duration": 209,
+          "thumbnail": "",
+          "bpm": 66,
+          "year": 1941,
+          "genre": "Jazz"
+        },
+        {
+          "id": "sad_4",
+          "filename": "nina_simone_feeling_good.mp3",
+          "title": "Feeling Good",
+          "artist": "Nina Simone",
+          "duration": 176,
+          "thumbnail": "",
+          "bpm": 84,
+          "year": 1965,
+          "genre": "Jazz"
+        },
+        {
+          "id": "sad_5",
+          "filename": "ray_charles_georgia_on_my_mind.mp3",
+          "title": "Georgia on My Mind",
+          "artist": "Ray Charles",
+          "duration": 217,
+          "thumbnail": "",
+          "bpm": 72,
+          "year": 1960,
+          "genre": "Jazz"
+        },
+        {
+          "id": "sad_6",
+          "filename": "louis_armstrong_what_a_wonderful_world.mp3",
+          "title": "What a Wonderful World",
+          "artist": "Louis Armstrong",
+          "duration": 142,
+          "thumbnail": "",
+          "bpm": 68,
+          "year": 1967,
+          "genre": "Jazz"
+        },
+        {
+          "id": "sad_7",
+          "filename": "amy_winehouse_back_to_black.mp3",
+          "title": "Back to Black",
+          "artist": "Amy Winehouse",
+          "duration": 241,
+          "thumbnail": "",
+          "bpm": 124,
+          "year": 2006,
+          "genre": "Soul"
+        },
+        {
+          "id": "sad_8",
+          "filename": "norah_jones_dont_know_why.mp3",
+          "title": "Don't Know Why",
+          "artist": "Norah Jones",
+          "duration": 186,
+          "thumbnail": "",
+          "bpm": 88,
+          "year": 2002,
+          "genre": "Jazz"
+        },
+        {
+          "id": "sad_9",
+          "filename": "miles_davis_blue_in_green.mp3",
+          "title": "Blue in Green",
+          "artist": "Miles Davis",
+          "duration": 338,
+          "thumbnail": "",
+          "bpm": 58,
+          "year": 1959,
+          "genre": "Jazz"
+        },
+        {
+          "id": "sad_10",
+          "filename": "john_coltrane_naima.mp3",
+          "title": "Naima",
+          "artist": "John Coltrane",
+          "duration": 432,
+          "thumbnail": "",
+          "bpm": 66,
+          "year": 1959,
+          "genre": "Jazz"
+        },
+        {
+          "id": "sad_11",
+          "filename": "otis_redding_these_arms_of_mine.mp3",
+          "title": "These Arms of Mine",
+          "artist": "Otis Redding",
+          "duration": 164,
+          "thumbnail": "",
+          "bpm": 80,
+          "year": 1962,
+          "genre": "Soul"
+        },
+        {
+          "id": "sad_12",
+          "filename": "ella_fitzgerald_cry_me_a_river.mp3",
+          "title": "Cry Me a River",
+          "artist": "Ella Fitzgerald",
+          "duration": 182,
+          "thumbnail": "",
+          "bpm": 76,
+          "year": 1961,
+          "genre": "Jazz"
+        },
+        {
+          "id": "sad_13",
+          "filename": "charles_bradley_changes.mp3",
+          "title": "Changes",
+          "artist": "Charles Bradley",
+          "duration": 354,
+          "thumbnail": "",
+          "bpm": 68,
+          "year": 2016,
+          "genre": "Soul"
+        }
+      ]
+    },
+    {
+      "id": "energetic",
+      "name": "Énergique",
+      "emoji": "⚡",
+      "genres": ["Rock", "Metal", "Alternative"],
+      "description": "Puissance, motivation extrême",
+      "color": "#FF4500",
+      "tracks": [
+        {
+          "id": "energetic_1",
+          "filename": "acdc_back_in_black.mp3",
+          "title": "Back in Black",
+          "artist": "AC/DC",
+          "duration": 255,
+          "thumbnail": "",
+          "bpm": 94,
+          "year": 1980,
+          "genre": "Rock"
+        },
+        {
+          "id": "energetic_2",
+          "filename": "metallica_enter_sandman.mp3",
+          "title": "Enter Sandman",
+          "artist": "Metallica",
+          "duration": 331,
+          "thumbnail": "",
+          "bpm": 123,
+          "year": 1991,
+          "genre": "Metal"
+        },
+        {
+          "id": "energetic_3",
+          "filename": "linkin_park_numb.mp3",
+          "title": "Numb",
+          "artist": "Linkin Park",
+          "duration": 187,
+          "thumbnail": "",
+          "bpm": 110,
+          "year": 2003,
+          "genre": "Alternative"
+        },
+        {
+          "id": "energetic_4",
+          "filename": "rage_against_the_machine_killing_in_the_name.mp3",
+          "title": "Killing in the Name",
+          "artist": "Rage Against the Machine",
+          "duration": 312,
+          "thumbnail": "",
+          "bpm": 109,
+          "year": 1992,
+          "genre": "Rock"
+        },
+        {
+          "id": "energetic_5",
+          "filename": "nirvana_smells_like_teen_spirit.mp3",
+          "title": "Smells Like Teen Spirit",
+          "artist": "Nirvana",
+          "duration": 301,
+          "thumbnail": "",
+          "bpm": 117,
+          "year": 1991,
+          "genre": "Rock"
+        },
+        {
+          "id": "energetic_6",
+          "filename": "queen_we_will_rock_you.mp3",
+          "title": "We Will Rock You",
+          "artist": "Queen",
+          "duration": 122,
+          "thumbnail": "",
+          "bpm": 82,
+          "year": 1977,
+          "genre": "Rock"
+        },
+        {
+          "id": "energetic_7",
+          "filename": "system_of_a_down_chop_suey.mp3",
+          "title": "Chop Suey!",
+          "artist": "System Of A Down",
+          "duration": 210,
+          "thumbnail": "",
+          "bpm": 130,
+          "year": 2001,
+          "genre": "Metal"
+        },
+        {
+          "id": "energetic_8",
+          "filename": "disturbed_down_with_the_sickness.mp3",
+          "title": "Down With The Sickness",
+          "artist": "Disturbed",
+          "duration": 272,
+          "thumbnail": "",
+          "bpm": 104,
+          "year": 2000,
+          "genre": "Metal"
+        },
+        {
+          "id": "energetic_9",
+          "filename": "foo_fighters_the_pretender.mp3",
+          "title": "The Pretender",
+          "artist": "Foo Fighters",
+          "duration": 269,
+          "thumbnail": "",
+          "bpm": 172,
+          "year": 2007,
+          "genre": "Rock"
+        },
+        {
+          "id": "energetic_10",
+          "filename": "slipknot_psychosocial.mp3",
+          "title": "Psychosocial",
+          "artist": "Slipknot",
+          "duration": 255,
+          "thumbnail": "",
+          "bpm": 124,
+          "year": 2008,
+          "genre": "Metal"
+        },
+        {
+          "id": "energetic_11",
+          "filename": "green_day_american_idiot.mp3",
+          "title": "American Idiot",
+          "artist": "Green Day",
+          "duration": 174,
+          "thumbnail": "",
+          "bpm": 189,
+          "year": 2004,
+          "genre": "Rock"
+        },
+        {
+          "id": "energetic_12",
+          "filename": "imagine_dragons_radioactive.mp3",
+          "title": "Radioactive",
+          "artist": "Imagine Dragons",
+          "duration": 187,
+          "thumbnail": "",
+          "bpm": 140,
+          "year": 2012,
+          "genre": "Alternative"
+        },
+        {
+          "id": "energetic_13",
+          "filename": "red_hot_chili_peppers_cant_stop.mp3",
+          "title": "Can't Stop",
+          "artist": "Red Hot Chili Peppers",
+          "duration": 269,
+          "thumbnail": "",
+          "bpm": 96,
+          "year": 2002,
+          "genre": "Rock"
+        }
+      ]
+    },
+    {
+      "id": "chill",
+      "name": "Détendu",
+      "emoji": "😌",
+      "genres": ["Lo-fi", "Ambient", "Chillhop"],
+      "description": "Relax, étude, zen",
+      "color": "#32CD32",
+      "tracks": [
+        {
+          "id": "relaxed_1",
+          "filename": "lo_fi_type_beat_lighter.mp3",
+          "title": "Lighter",
+          "artist": "Midsummer",
+          "duration": 150,
+          "thumbnail": "",
+          "bpm": 85,
+          "year": 2020,
+          "genre": "Lo-fi"
+        },
+        {
+          "id": "relaxed_2",
+          "filename": "jinsang_affection.mp3",
+          "title": "Affection",
+          "artist": "Jinsang",
+          "duration": 142,
+          "thumbnail": "",
+          "bpm": 90,
+          "year": 2016,
+          "genre": "Lo-fi"
+        },
+        {
+          "id": "relaxed_3",
+          "filename": "idealism_snowfall.mp3",
+          "title": "Snowfall",
+          "artist": "Idealism",
+          "duration": 168,
+          "thumbnail": "",
+          "bpm": 88,
+          "year": 2017,
+          "genre": "Lo-fi"
+        },
+        {
+          "id": "relaxed_4",
+          "filename": "nujabes_feather.mp3",
+          "title": "Feather",
+          "artist": "Nujabes",
+          "duration": 173,
+          "thumbnail": "",
+          "bpm": 92,
+          "year": 2005,
+          "genre": "Lo-fi"
+        },
+        {
+          "id": "relaxed_5",
+          "filename": "joji_will_he.mp3",
+          "title": "Will He",
+          "artist": "Joji",
+          "duration": 213,
+          "thumbnail": "",
+          "bpm": 75,
+          "year": 2017,
+          "genre": "Lo-fi"
+        },
+        {
+          "id": "relaxed_6",
+          "filename": "sleepdealer_ghost.mp3",
+          "title": "Ghost",
+          "artist": "Sleepdealer",
+          "duration": 194,
+          "thumbnail": "",
+          "bpm": 84,
+          "year": 2018,
+          "genre": "Lo-fi"
+        },
+        {
+          "id": "relaxed_7",
+          "filename": "eevee_forest.mp3",
+          "title": "Forest",
+          "artist": "Eevee",
+          "duration": 156,
+          "thumbnail": "",
+          "bpm": 88,
+          "year": 2016,
+          "genre": "Lo-fi"
+        },
+        {
+          "id": "relaxed_8",
+          "filename": "odesza_a_moment_apart.mp3",
+          "title": "A Moment Apart",
+          "artist": "ODESZA",
+          "duration": 242,
+          "thumbnail": "",
+          "bpm": 92,
+          "year": 2017,
+          "genre": "Ambient"
+        },
+        {
+          "id": "relaxed_9",
+          "filename": "tycho_awake.mp3",
+          "title": "Awake",
+          "artist": "Tycho",
+          "duration": 248,
+          "thumbnail": "",
+          "bpm": 100,
+          "year": 2014,
+          "genre": "Ambient"
+        },
+        {
+          "id": "relaxed_10",
+          "filename": "bonobo_kiara.mp3",
+          "title": "Kiara",
+          "artist": "Bonobo",
+          "duration": 225,
+          "thumbnail": "",
+          "bpm": 94,
+          "year": 2010,
+          "genre": "Chillhop"
+        },
+        {
+          "id": "relaxed_11",
+          "filename": "j_dilla_time_donut_of_the_heart.mp3",
+          "title": "Time: Donut of the Heart",
+          "artist": "J Dilla",
+          "duration": 96,
+          "thumbnail": "",
+          "bpm": 86,
+          "year": 2006,
+          "genre": "Lo-fi"
+        },
+        {
+          "id": "relaxed_12",
+          "filename": "potsu_just_friends.mp3",
+          "title": "just friends",
+          "artist": "potsu",
+          "duration": 154,
+          "thumbnail": "",
+          "bpm": 90,
+          "year": 2018,
+          "genre": "Lo-fi"
+        },
+        {
+          "id": "relaxed_13",
+          "filename": "boards_of_canada_dayvan_cowboy.mp3",
+          "title": "Dayvan Cowboy",
+          "artist": "Boards of Canada",
+          "duration": 393,
+          "thumbnail": "",
+          "bpm": 88,
+          "year": 2005,
+          "genre": "Ambient"
+        }
+      ]
+    },
+    {
+      "id": "romantic",
+      "name": "Romantique",
+      "emoji": "❤️",
+      "genres": ["R&B", "Soul", "Ballad"],
+      "description": "Love, douceur, sensualité",
+      "color": "#FF69B4",
+      "tracks": [
+        {
+          "id": "romantic_1",
+          "filename": "daniel_caesar_best_part.mp3",
+          "title": "Best Part",
+          "artist": "Daniel Caesar ft. H.E.R.",
+          "duration": 212,
+          "thumbnail": "",
+          "bpm": 93,
+          "year": 2017,
+          "genre": "R&B"
+        },
+        {
+          "id": "romantic_2",
+          "filename": "the_weeknd_die_for_you.mp3",
+          "title": "Die For You",
+          "artist": "The Weeknd",
+          "duration": 260,
+          "thumbnail": "",
+          "bpm": 120,
+          "year": 2016,
+          "genre": "R&B"
+        },
+        {
+          "id": "romantic_3",
+          "filename": "sza_love_galore.mp3",
+          "title": "Love Galore",
+          "artist": "SZA ft. Travis Scott",
+          "duration": 284,
+          "thumbnail": "",
+          "bpm": 140,
+          "year": 2017,
+          "genre": "R&B"
+        },
+        {
+          "id": "romantic_4",
+          "filename": "giveon_heartbreak_anniversary.mp3",
+          "title": "Heartbreak Anniversary",
+          "artist": "Giveon",
+          "duration": 198,
+          "thumbnail": "",
+          "bpm": 90,
+          "year": 2020,
+          "genre": "R&B"
+        },
+        {
+          "id": "romantic_5",
+          "filename": "frank_ocean_thinkin_bout_you.mp3",
+          "title": "Thinkin Bout You",
+          "artist": "Frank Ocean",
+          "duration": 200,
+          "thumbnail": "",
+          "bpm": 120,
+          "year": 2012,
+          "genre": "R&B"
+        },
+        {
+          "id": "romantic_6",
+          "filename": "alicia_keys_if_i_aint_got_you.mp3",
+          "title": "If I Ain't Got You",
+          "artist": "Alicia Keys",
+          "duration": 215,
+          "thumbnail": "",
+          "bpm": 72,
+          "year": 2003,
+          "genre": "R&B"
+        },
+        {
+          "id": "romantic_7",
+          "filename": "her_focus.mp3",
+          "title": "Focus",
+          "artist": "H.E.R",
+          "duration": 197,
+          "thumbnail": "",
+          "bpm": 95,
+          "year": 2016,
+          "genre": "R&B"
+        },
+        {
+          "id": "romantic_8",
+          "filename": "chris_brown_under_the_influence.mp3",
+          "title": "Under the Influence",
+          "artist": "Chris Brown",
+          "duration": 223,
+          "thumbnail": "",
+          "bpm": 120,
+          "year": 2019,
+          "genre": "R&B"
+        },
+        {
+          "id": "romantic_9",
+          "filename": "brent_faiyaz_gravity.mp3",
+          "title": "Gravity",
+          "artist": "Brent Faiyaz",
+          "duration": 191,
+          "thumbnail": "",
+          "bpm": 85,
+          "year": 2020,
+          "genre": "R&B"
+        },
+        {
+          "id": "romantic_10",
+          "filename": "marvin_gaye_lets_get_it_on.mp3",
+          "title": "Let's Get It On",
+          "artist": "Marvin Gaye",
+          "duration": 235,
+          "thumbnail": "",
+          "bpm": 80,
+          "year": 1973,
+          "genre": "Soul"
+        },
+        {
+          "id": "romantic_11",
+          "filename": "usher_u_got_it_bad.mp3",
+          "title": "U Got It Bad",
+          "artist": "Usher",
+          "duration": 267,
+          "thumbnail": "",
+          "bpm": 96,
+          "year": 2001,
+          "genre": "R&B"
+        },
+        {
+          "id": "romantic_12",
+          "filename": "john_legend_all_of_me.mp3",
+          "title": "All of Me",
+          "artist": "John Legend",
+          "duration": 269,
+          "thumbnail": "",
+          "bpm": 120,
+          "year": 2013,
+          "genre": "Ballad"
+        },
+        {
+          "id": "romantic_13",
+          "filename": "dangelo_untitled.mp3",
+          "title": "Untitled (How Does It Feel)",
+          "artist": "D'Angelo",
+          "duration": 430,
+          "thumbnail": "",
+          "bpm": 70,
+          "year": 2000,
+          "genre": "Soul"
+        }
+      ]
+    }
+  ]
+}

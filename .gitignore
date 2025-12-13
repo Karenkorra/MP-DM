@@ -1,4 +1,5 @@
 /assets/music/
 *.mp3
-/assets/music/
-*.mp3
+.DS_Store
+build/
+.dart_tool/
