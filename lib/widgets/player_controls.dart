@@ -21,7 +21,7 @@ class PlayerControls extends StatelessWidget {
       case 'jamendo':
         return const Color(0xFF00A2FF);
       case 'local':
-        return const Color(0xFF4CAF50);
+        return const Color(0xFF9C27B0);
       default:
         return Colors.grey;
     }
@@ -134,69 +134,82 @@ class PlayerControls extends StatelessWidget {
       );
     }
 
-
-    return SingleChildScrollView(
+    // MODIFIÉ : Version avec espacements réduits
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16), // Padding réduit
       child: Column(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start, // Aligné en haut
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Informations de la piste
+          // Informations de la piste - avec espacements réduits
           if (track != null) ...[
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  Text(
-                    track.title,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.center,
+            Column(
+              children: [
+                Text(
+                  track.title,
+                  style: const TextStyle(
+                    fontSize: 22, // Légèrement réduit
+                    fontWeight: FontWeight.bold,
                   ),
-                  const SizedBox(height: 8),
-                  Text(
-                    track.artist,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey[600],
-                    ),
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 4), // Réduit de 8 à 4
+                Text(
+                  track.artist,
+                  style: TextStyle(
+                    fontSize: 16, // Réduit de 18 à 16
+                    color: Colors.grey[600],
                   ),
-                ],
-              ),
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 12), // Réduit de 20 à 12
+              ],
             ),
           ],
 
           // Barre de progression avec temps
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: ProgressBar(
-              currentPosition: viewModel.currentPosition,
-              duration: viewModel.currentDuration,
-              onSeek: (position) => viewModel.seek(position),
-              progressColor: Theme.of(context).primaryColor,
-            ),
+          ProgressBar(
+            currentPosition: viewModel.currentPosition,
+            duration: viewModel.currentDuration,
+            onSeek: (position) => viewModel.seek(position),
+            progressColor: Theme.of(context).primaryColor,
           ),
 
-          // Contrôles de lecture
+          // Contrôles de lecture principaux avec espacements réduits
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+            padding: const EdgeInsets.symmetric(vertical: 8), // Réduit de 20 à 8
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                // Shuffle
+                IconButton(
+                  icon: Icon(
+                    Icons.shuffle,
+                    color: viewModel.isShuffled
+                        ? Theme.of(context).primaryColor
+                        : Colors.grey[600],
+                  ),
+                  onPressed: viewModel.shuffle,
+                ),
+
                 // Previous
                 IconButton(
                   icon: const Icon(Icons.skip_previous),
-                  iconSize: 36,
+                  iconSize: 32, // Réduit de 36 à 32
                   onPressed: viewModel.hasPrevious ? viewModel.previous : null,
                 ),
 
-                // Play/Pause
+                // Play/Pause (bouton principal)
                 IconButton(
                   icon: Icon(
                     viewModel.isPlaying
                         ? Icons.pause_circle_filled
                         : Icons.play_circle_filled,
-                    size: 60,
+                    size: 56, // Réduit de 60 à 56
                   ),
                   onPressed: () {
                     if (viewModel.isPlaying) {
@@ -210,47 +223,8 @@ class PlayerControls extends StatelessWidget {
                 // Next
                 IconButton(
                   icon: const Icon(Icons.skip_next),
-                  iconSize: 36,
+                  iconSize: 32, // Réduit de 36 à 32
                   onPressed: viewModel.hasNext ? viewModel.next : null,
-                ),
-              ],
-            ),
-          ),
-
-          // Volume
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-            child: Row(
-              children: [
-                const Icon(Icons.volume_down),
-                Expanded(
-                  child: Slider(
-                    value: viewModel.volume,
-                    min: 0,
-                    max: 1,
-                    onChanged: viewModel.setVolume,
-                  ),
-                ),
-                const Icon(Icons.volume_up),
-              ],
-            ),
-          ),
-
-          // Contrôles supplémentaires
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                // Shuffle
-                IconButton(
-                  icon: Icon(
-                    Icons.shuffle,
-                    color: viewModel.isShuffled
-                        ? Theme.of(context).primaryColor
-                        : Colors.grey[600],
-                  ),
-                  onPressed: viewModel.shuffle,
                 ),
 
                 // Repeat
@@ -263,14 +237,15 @@ class PlayerControls extends StatelessWidget {
                   ),
                   onPressed: viewModel.toggleRepeat,
                 ),
-
-                // Stop
-                IconButton(
-                  icon: const Icon(Icons.stop),
-                  onPressed: viewModel.stop,
-                ),
               ],
             ),
+          ),
+
+          // Contrôle Stop avec espacement réduit
+          IconButton(
+            icon: const Icon(Icons.stop),
+            iconSize: 32, // Réduit de 36 à 32
+            onPressed: viewModel.stop,
           ),
         ],
       ),
@@ -278,7 +253,8 @@ class PlayerControls extends StatelessWidget {
   }
 }
 
-// Widget ProgressBar
+
+// Widget ProgressBar (inchangé)
 class ProgressBar extends StatefulWidget {
   final Duration? currentPosition;
   final Duration? duration;

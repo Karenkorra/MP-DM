@@ -14,7 +14,7 @@ class Track {
   final int? bpm;
   final int? year;
   final String? genre;
-
+  final String? youtubeVideoId;
 
   // Crée un Track et applique les valeurs par défaut si nécessaire.
   Track({
@@ -31,6 +31,7 @@ class Track {
     this.bpm,
     this.year,
     this.genre,
+    this.youtubeVideoId,
   })  : color = color ?? _getDefaultColor(source),
         sourceName = sourceName ?? _getDefaultSourceName(source);
 
@@ -82,6 +83,7 @@ class Track {
     int? bpm,
     int? year,
     String? genre,
+    String? youtubeVideoId,
   }) {
     return Track(
       id: id,
@@ -97,6 +99,36 @@ class Track {
       bpm: bpm,
       year: year,
       genre: genre,
+      youtubeVideoId: youtubeVideoId,
+    );
+  }
+
+  //MÉTHODE POUR YOUTUBE
+  factory Track.youtube({
+    required String videoId,
+    required String title,
+    required String artist,
+    Duration? duration,
+    String? thumbnailUrl,
+    int? bpm,
+    int? year,
+    String? genre,
+  }) {
+    return Track(
+      id: 'youtube_$videoId',
+      title: title,
+      artist: artist,
+      duration: duration,
+      thumbnailUrl: thumbnailUrl,
+      audioUrl: 'https://www.youtube.com/watch?v=$videoId',
+      source: 'youtube',
+      isLocal: false,
+      color: const Color(0xFFFF0000),
+      sourceName: 'YouTube',
+      bpm: bpm,
+      year: year,
+      genre: genre,
+      youtubeVideoId: videoId,
     );
   }
 
@@ -104,17 +136,17 @@ class Track {
   static Color _getDefaultColor(String source) {
     switch (source.toLowerCase()) {
       case 'soundcloud':
-        return const Color(0xFFFF5500); // Orange SoundCloud
+        return const Color(0xFFFF5500); //SoundCloud
       case 'audius':
-        return const Color(0xFF1E88E5); // Bleu Audius
+        return const Color(0xFF1E88E5); //Audius
       case 'jamendo':
-        return const Color(0xFF9C27B0); // Violet Jamendo
+        return const Color(0xFF9C27B0); //Jamendo
       case 'local':
-        return const Color(0xFF4CAF50); // Vert pour local
+        return const Color(0xFF9C27B0); //local
       case 'spotify':
-        return const Color(0xFF1DB954); // Vert Spotify
+        return const Color(0xFF1DB954); //Spotify
       case 'youtube':
-        return const Color(0xFFFF0000); // Rouge YouTube
+        return const Color(0xFFFF0000); //YouTube
       default:
         return const Color(0xFF607D8B); // Gris par défaut
     }
@@ -138,6 +170,24 @@ class Track {
       default:
         return source;
     }
+  }
+
+  //Vérifier si c'est une track YouTube
+  bool get isYouTube => source.toLowerCase() == 'youtube';
+
+  //Obtenir l'ID vidéo YouTube
+  String? get youtubeId {
+    if (isYouTube) {
+      // Essayer d'extraire de l'URL ou utiliser youtubeVideoId
+      if (youtubeVideoId != null) return youtubeVideoId;
+
+      final regExp = RegExp(
+        r'(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})',
+      );
+      final match = regExp.firstMatch(audioUrl);
+      return match?.group(1);
+    }
+    return null;
   }
 
   // Méthode pour vérifier si c'est un asset local
@@ -165,6 +215,7 @@ class Track {
       'bpm': bpm,
       'year': year,
       'genre': genre,
+      'youtubeVideoId': youtubeVideoId,
     };
   }
 
@@ -184,6 +235,7 @@ class Track {
       bpm: map['bpm'],
       year: map['year'],
       genre: map['genre'],
+      youtubeVideoId: map['youtubeVideoId'],
     );
   }
 
@@ -202,6 +254,7 @@ class Track {
     int? bpm,
     int? year,
     String? genre,
+    String? youtubeVideoId,
   }) {
     return Track(
       id: id ?? this.id,
@@ -217,13 +270,14 @@ class Track {
       bpm: bpm ?? this.bpm,
       year: year ?? this.year,
       genre: genre ?? this.genre,
+      youtubeVideoId: youtubeVideoId ?? this.youtubeVideoId,
     );
   }
 
   // Pour le debug
   @override
   String toString() {
-    return 'Track{id: $id, title: $title, artist: $artist, source: $source, isLocal: $isLocal}';
+    return 'Track{id: $id, title: $title, artist: $artist, source: $source, isYouTube: $isYouTube}';
   }
 
   // Pour comparer deux tracks

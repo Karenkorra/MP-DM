@@ -16,7 +16,7 @@ class PlayerView extends StatelessWidget {
       case 'jamendo':
         return const Color(0xFF00A2FF);
       case 'local':
-        return const Color(0xFF4CAF50);
+        return const Color(0xFF9C27B0);
       default:
         return Colors.grey;
     }
@@ -100,7 +100,6 @@ class PlayerView extends StatelessWidget {
             IconButton(
               icon: const Icon(Icons.queue_music),
               onPressed: () {
-                // TODO: Ajouter une vue playlist
                 showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
@@ -146,7 +145,7 @@ class PlayerView extends StatelessWidget {
         children: [
           // Album Art - Partie supérieure avec effet de dégradé
           Expanded(
-            flex: 2,
+            flex: 3, // Augmenté de 2 à 3 pour donner plus d'espace à l'image
             child: Stack(
               children: [
                 // Fond de dégradé basé sur la couleur de la source
@@ -168,7 +167,7 @@ class PlayerView extends StatelessWidget {
                 // Image d'album ou placeholder
                 Center(
                   child: Padding(
-                    padding: const EdgeInsets.all(32), // Réduit de 40 à 32
+                    padding: const EdgeInsets.all(32),
                     child: Hero(
                       tag: 'album_art_${track.id}',
                       child: Material(
@@ -196,11 +195,11 @@ class PlayerView extends StatelessWidget {
 
                 // Overlay d'informations en haut
                 Positioned(
-                  top: 12, // Réduit de 20 à 12
+                  top: 12,
                   left: 0,
                   right: 0,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16), // Réduit de 20 à 16
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Column(
                       children: [
                         // Source info
@@ -247,78 +246,10 @@ class PlayerView extends StatelessWidget {
             ),
           ),
 
-          // Informations de la piste
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12), // Réduit
-            child: Column(
-              children: [
-                // Titre
-                Text(
-                  track.title,
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    height: 1.2,
-                  ),
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-
-                const SizedBox(height: 6), // Réduit de 8 à 6
-
-                // Artiste
-                Text(
-                  track.artist,
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.grey[600],
-                    fontWeight: FontWeight.w500,
-                  ),
-                  textAlign: TextAlign.center,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-
-                // Infos supplémentaires (BPM, Genre, Année)
-                const SizedBox(height: 10), // Réduit de 12 à 10
-                if (track.bpm != null || track.year != null || track.genre != null)
-                  Wrap(
-                    spacing: 10, // Réduit de 12 à 10
-                    runSpacing: 6, // Réduit de 8 à 6
-                    alignment: WrapAlignment.center,
-                    children: [
-                      if (track.bpm != null)
-                        _buildInfoChip(
-                          icon: Icons.speed,
-                          label: '${track.bpm} BPM',
-                          color: sourceColor,
-                        ),
-                      if (track.genre != null)
-                        _buildInfoChip(
-                          icon: Icons.category,
-                          label: track.genre!,
-                          color: sourceColor,
-                        ),
-                      if (track.year != null)
-                        _buildInfoChip(
-                          icon: Icons.calendar_today,
-                          label: '${track.year}',
-                          color: sourceColor,
-                        ),
-                    ],
-                  ),
-              ],
-            ),
-          ),
-
-          // Player Controls étendu
+          // Player Controls - Espace réduit
           Expanded(
-            flex: 1,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: PlayerControls(expanded: true),
-            ),
+            flex: 2, // Réduit de 1 à 2 pour moins d'espace
+            child: PlayerControls(expanded: true),
           ),
         ],
       ),
@@ -351,40 +282,6 @@ class PlayerView extends StatelessWidget {
         Icons.music_note,
         size: 70,
         color: Colors.white.withOpacity(0.9),
-      ),
-    );
-  }
-
-  Widget _buildInfoChip({
-    required IconData icon,
-    required String label,
-    required Color color,
-  }) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: color.withOpacity(0.3)),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            icon,
-            size: 14,
-            color: color,
-          ),
-          const SizedBox(width: 4),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 12,
-              color: color,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
       ),
     );
   }

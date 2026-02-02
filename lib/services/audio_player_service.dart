@@ -1,6 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class AudioPlayerService {
   final AudioPlayer _audioPlayer = AudioPlayer();
@@ -61,7 +62,7 @@ class AudioPlayerService {
         // Lecture depuis fichier local
         await _audioPlayer.play(DeviceFileSource(url.replaceFirst('file://', '')));
       } else {
-        // Lecture depuis URL réseau
+        // Lecture depuis URL réseau standard
         await _audioPlayer.play(UrlSource(url));
       }
 
@@ -78,7 +79,6 @@ class AudioPlayerService {
         print('💡 Vérifiez votre pubspec.yaml');
         await _debugAssetIssue(url);
       }
-
       rethrow;
     }
   }
@@ -139,7 +139,7 @@ class AudioPlayerService {
       print('🔍 Début debug pour: $assetUrl');
 
       final path = assetUrl.replaceFirst('asset://', 'assets/');
-      print('📁 Chemin recherché: $path');
+      print('📁 Cheint recherché: $path');
 
       // Essayer de charger le manifest
       try {
@@ -341,17 +341,7 @@ class AudioPlayerService {
     }
   }
 
-  // Obtenir des informations de debug
-  Map<String, dynamic> getDebugInfo() {
-    return {
-      'currentState': _currentState.toString(),
-      'currentUrl': _currentUrl,
-      'isInitialized': _isInitialized,
-      'isPlaying': isPlaying,
-      'isPaused': isPaused,
-      'isStopped': isStopped,
-    };
-  }
+
 
   // Tester la lecture d'un fichier spécifique
   Future<bool> testPlayAsset(String assetPath) async {
@@ -379,4 +369,5 @@ class AudioPlayerService {
       print('❌ Erreur lors du nettoyage: $e');
     }
   }
+
 }

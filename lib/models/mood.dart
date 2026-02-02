@@ -1,10 +1,11 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Mood {
   final String id;
   final String name;
-  final String emoji;
+  final IconData emoji;
   final Color color;
   final List<String> recommendedGenres;
   final DateTime createdAt;
@@ -25,7 +26,7 @@ class Mood {
     Mood(
       id: 'happy',
       name: 'Heureux',
-      emoji: '😊',
+      emoji: FontAwesomeIcons.faceSmileBeam,
       color: Colors.yellow,
       recommendedGenres: ['Pop', 'Disco', 'Funk', 'Reggae'],
       createdAt: DateTime.now(),
@@ -33,7 +34,7 @@ class Mood {
     Mood(
       id: 'sad',
       name: 'Triste',
-      emoji: '😢',
+      emoji: FontAwesomeIcons.faceSadTear,
       color: Colors.blue,
       recommendedGenres: ['Blues', 'Jazz', 'Soul', 'Acoustic'],
       createdAt: DateTime.now(),
@@ -41,7 +42,7 @@ class Mood {
     Mood(
       id: 'energetic',
       name: 'Énergique',
-      emoji: '⚡',
+      emoji:FontAwesomeIcons.bolt,
       color: Colors.orange,
       recommendedGenres: ['Rock', 'Metal', 'EDM', 'Hip Hop'],
       createdAt: DateTime.now(),
@@ -49,7 +50,7 @@ class Mood {
     Mood(
       id: 'chill',
       name: 'Détendu',
-      emoji: '😌',
+      emoji:FontAwesomeIcons.couch,
       color: Colors.green,
       recommendedGenres: ['Lo-fi', 'Ambient', 'Chillout', 'Jazz'],
       createdAt: DateTime.now(),
@@ -57,7 +58,7 @@ class Mood {
     Mood(
       id: 'romantic',
       name: 'Romantique',
-      emoji: '🥰',
+      emoji:  FontAwesomeIcons.heart,
       color: Colors.pink,
       recommendedGenres: ['R&B', 'Soul', 'Classical', 'Pop Ballad'],
       createdAt: DateTime.now(),

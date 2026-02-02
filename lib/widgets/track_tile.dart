@@ -4,204 +4,331 @@ import '../models/track.dart';
 class TrackTile extends StatelessWidget {
   final Track track;
   final VoidCallback onTap;
-  final bool showSource;
+  final VoidCallback? onLongPress;
   final bool isPlaying;
-  final bool showPlayIcon;
-  final bool dense;
-  final Color? backgroundColor;
-  final BorderRadius? borderRadius;
 
   const TrackTile({
     Key? key,
     required this.track,
     required this.onTap,
-    this.showSource = true,
+    this.onLongPress,
     this.isPlaying = false,
-    this.showPlayIcon = false,
-    this.dense = false,
-    this.backgroundColor,
-    this.borderRadius,
   }) : super(key: key);
+
+  Color _getSourceColor(String source) {
+    switch (source) {
+      case 'soundcloud':
+        return const Color(0xFFff3300);
+      case 'audius':
+        return const Color(0xFF8B5CF6);
+      case 'jamendo':
+        return const Color(0xFF00A2FF);
+      case 'youtube':
+        return const Color(0xFFFF0000);
+      case 'local':
+        return const Color(0xFF9C27B0);
+      case 'device':
+        return const Color(0xFF9C27B0);
+      default:
+        return Colors.grey;
+    }
+  }
+
+  IconData _getSourceIcon(String source) {
+    switch (source) {
+      case 'soundcloud':
+        return Icons.cloud;
+      case 'audius':
+        return Icons.music_note;
+      case 'jamendo':
+        return Icons.library_music;
+      case 'youtube':
+        return Icons.play_circle_outline;
+      case 'local':
+        return Icons.album;
+      case 'device':
+        return Icons.phone_android;
+      default:
+        return Icons.music_note;
+    }
+  }
+
+  String _formatDuration(Duration? duration) {
+    if (duration == null) return '--:--';
+    final minutes = duration.inMinutes;
+    final seconds = duration.inSeconds.remainder(60);
+    return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+  }
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final sourceColor = _getSourceColor(track.source);
+    final sourceIcon = _getSourceIcon(track.source);
 
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 2),
+      margin: const EdgeInsets.symmetric(vertical: 4),
       decoration: BoxDecoration(
-        color: backgroundColor ?? theme.cardColor,
-        borderRadius: borderRadius ?? BorderRadius.circular(8),
-      ),
-      child: ListTile(
-        dense: dense,
-        leading: _buildThumbnail(),
-        title: Text(
-          track.title,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(
-            fontWeight: FontWeight.w500,
-            color: isPlaying ? theme.primaryColor : null,
-          ),
-        ),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              track.artist,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontSize: dense ? 12 : 14,
-                color: isPlaying ? theme.primaryColor.withOpacity(0.7) : null,
-              ),
-            ),
-            if (showSource) _buildSourceInfo(),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            sourceColor.withOpacity(0.1),
+            Colors.grey[900]!.withOpacity(0.5),
           ],
         ),
-        trailing: _buildTrailing(context),
-        onTap: onTap,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: isPlaying
+              ? sourceColor.withOpacity(0.5)
+              : Colors.grey.withOpacity(0.2),
+          width: isPlaying ? 2 : 1,
+        ),
+        boxShadow: isPlaying
+            ? [
+          BoxShadow(
+            color: sourceColor.withOpacity(0.3),
+            blurRadius: 12,
+            spreadRadius: 2,
+          ),
+        ]
+            : null,
+      ),
+      child: Material(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(16),
+        child: InkWell(
+          onTap: onTap,
+          onLongPress: onLongPress,
+          borderRadius: BorderRadius.circular(16),
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Row(
+              children: [
+                // Thumbnail ou icône
+                _buildThumbnail(sourceColor, sourceIcon),
+                const SizedBox(width: 12),
+
+                // Informations de la piste
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Titre
+                      Text(
+                        track.title,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: isPlaying ? sourceColor : Colors.white,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 4),
+
+                      // Artiste
+                      Text(
+                        track.artist,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey[400],
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 6),
+
+                      // Métadonnées (source, genre, BPM)
+                      Row(
+                        children: [
+                          // Source badge
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 3,
+                            ),
+                            decoration: BoxDecoration(
+                              color: sourceColor.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(
+                                color: sourceColor.withOpacity(0.3),
+                                width: 1,
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  sourceIcon,
+                                  size: 12,
+                                  color: sourceColor,
+                                ),
+                                const SizedBox(width: 4),
+                                Text(
+                                  track.source.toUpperCase(),
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                    color: sourceColor,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          // Genre (si disponible)
+                          if (track.genre != null) ...[
+                            const SizedBox(width: 6),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 6,
+                                vertical: 3,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.grey[800],
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Text(
+                                track.genre!,
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  color: Colors.grey[400],
+                                ),
+                              ),
+                            ),
+                          ],
+
+                          // BPM (si disponible)
+                          if (track.bpm != null) ...[
+                            const SizedBox(width: 6),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 6,
+                                vertical: 3,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.grey[800],
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.speed,
+                                    size: 10,
+                                    color: Colors.grey[400],
+                                  ),
+                                  const SizedBox(width: 3),
+                                  Text(
+                                    '${track.bpm}',
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                      color: Colors.grey[400],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+
+                // Durée et indicateur de lecture
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    // Indicateur de lecture
+                    if (isPlaying)
+                      Container(
+                        padding: const EdgeInsets.all(6),
+                        decoration: BoxDecoration(
+                          color: sourceColor.withOpacity(0.2),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          Icons.play_arrow,
+                          color: sourceColor,
+                          size: 20,
+                        ),
+                      )
+                    else
+                      Icon(
+                        Icons.play_circle_outline,
+                        color: Colors.grey[600],
+                        size: 32,
+                      ),
+                    const SizedBox(height: 4),
+
+                    // Durée
+                    Text(
+                      _formatDuration(track.duration),
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[500],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
 
-  Widget _buildThumbnail() {
-    final size = dense ? 40.0 : 50.0;
-
-    return Stack(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(6),
-          child: track.thumbnailUrl != null && !track.isAsset
-              ? Image.network(
-            track.thumbnailUrl!,
-            width: size,
-            height: size,
-            fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) {
-              return _buildPlaceholder(size);
-            },
-          )
-              : track.isAsset && track.thumbnailUrl != null
-              ? Image.asset(
-            track.thumbnailUrl!,
-            width: size,
-            height: size,
-            fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) {
-              return _buildPlaceholder(size);
-            },
-          )
-              : _buildPlaceholder(size),
-        ),
-        if (isPlaying)
-          Positioned.fill(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.4),
-                borderRadius: BorderRadius.circular(6),
-              ),
-              child: const Icon(
-                Icons.play_arrow,
-                color: Colors.white,
-                size: 20,
-              ),
-            ),
+  Widget _buildThumbnail(Color sourceColor, IconData sourceIcon) {
+    if (track.thumbnailUrl != null && track.thumbnailUrl!.isNotEmpty) {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(12),
+        child: Container(
+          width: 60,
+          height: 60,
+          decoration: BoxDecoration(
+            color: Colors.grey[800],
           ),
-      ],
-    );
+          child: Image.network(
+            track.thumbnailUrl!,
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) {
+              return _buildPlaceholderThumbnail(sourceColor, sourceIcon);
+            },
+            loadingBuilder: (context, child, loadingProgress) {
+              if (loadingProgress == null) return child;
+              return _buildPlaceholderThumbnail(sourceColor, sourceIcon);
+            },
+          ),
+        ),
+      );
+    }
+
+    return _buildPlaceholderThumbnail(sourceColor, sourceIcon);
   }
 
-  Widget _buildPlaceholder(double size) {
+  Widget _buildPlaceholderThumbnail(Color sourceColor, IconData sourceIcon) {
     return Container(
-      width: size,
-      height: size,
+      width: 60,
+      height: 60,
       decoration: BoxDecoration(
-        color: track.color.withOpacity(0.2),
-        borderRadius: BorderRadius.circular(6),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            sourceColor.withOpacity(0.7),
+            sourceColor.withOpacity(0.4),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(12),
       ),
       child: Icon(
-        Icons.music_note,
-        color: track.color,
-        size: size * 0.4,
+        sourceIcon,
+        color: Colors.white.withOpacity(0.8),
+        size: 30,
       ),
     );
-  }
-
-  Widget _buildSourceInfo() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 2),
-      child: Row(
-        children: [
-          Icon(
-            track.isLocal ? Icons.phone_android : Icons.cloud,
-            size: dense ? 10 : 12,
-            color: track.color,
-          ),
-          const SizedBox(width: 4),
-          Text(
-            track.sourceName,
-            style: TextStyle(
-              fontSize: dense ? 10 : 11,
-              color: track.color,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTrailing(BuildContext context) {
-    final children = <Widget>[];
-
-    // Ajouter l'icône de lecture si nécessaire
-    if (showPlayIcon && isPlaying) {
-      children.add(
-        Icon(
-          Icons.equalizer,
-          color: Theme.of(context).primaryColor,
-          size: 20,
-        ),
-      );
-      children.add(const SizedBox(width: 8));
-    }
-
-    // Ajouter la durée si disponible
-    if (track.duration != null) {
-      children.add(
-        Text(
-          _formatDuration(track.duration!),
-          style: TextStyle(
-            fontSize: dense ? 11 : 12,
-            color: Theme.of(context).hintColor,
-          ),
-        ),
-      );
-    }
-
-    // Ajouter l'icône local si c'est une musique locale
-    if (track.isLocal) {
-      children.add(const SizedBox(width: 8));
-      children.add(
-        Icon(
-          Icons.phone_android,
-          size: dense ? 14 : 16,
-          color: Colors.green,
-        ),
-      );
-    }
-
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: children,
-    );
-  }
-
-  String _formatDuration(Duration duration) {
-    final minutes = duration.inMinutes;
-    final seconds = duration.inSeconds % 60;
-    return '$minutes:${seconds.toString().padLeft(2, '0')}';
   }
 }

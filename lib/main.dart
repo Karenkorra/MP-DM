@@ -1,55 +1,48 @@
 import 'package:dj_mood_front/services/audio_player_service.dart';
 import 'package:dj_mood_front/services/local_music_service.dart';
+import 'package:dj_mood_front/services/mood_analyzer.dart';
 import 'package:dj_mood_front/viewmodels/home_viewmodel.dart';
 import 'package:dj_mood_front/viewmodels/mood_viewmodel.dart';
 import 'package:dj_mood_front/viewmodels/player_viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 import 'views/home_view.dart';
-import 'views/mood_view.dart';
 import 'views/player_view.dart';
+import 'package:dj_mood_front/viewmodels/text_analysis_viewmodel.dart';
 
 Future<void> checkAssets() async {
+  print('🔍 Vérification des assets...');
   try {
-    final manifest = await rootBundle.loadString('AssetManifest.json');
+    final manifest = await rootBundle.loadString('local_playlists.json');
     final Map<String, dynamic> manifestMap = json.decode(manifest);
 
     final musicAssets = manifestMap.keys
-        .where((key) => key.startsWith('assets/music/') && key.endsWith('.mp3'))
+        .where((key) => key.contains('music/'))
         .toList();
 
-    print('🎵 ${musicAssets.length} fichiers MP3 trouvés dans les assets:');
-    for (final asset in musicAssets.take(10)) {
-      print('   - $asset');
-    }
-    if (musicAssets.length > 10) {
-      print('   ... et ${musicAssets.length - 10} autres');
-    }
+    print('📁 ${musicAssets.length} assets music trouvés');
 
-    final folders = ['happy', 'sad', 'energetic', 'relaxed', 'romantic'];
-    for (final folder in folders) {
-      final folderAssets = manifestMap.keys
-          .where((key) => key.contains('assets/music/$folder/'))
-          .toList();
-      print('   $folder/: ${folderAssets.length} fichiers');
+    if (musicAssets.isEmpty) {
+      print('Aucun asset music trouvé!');
+    } else {
+      print('Assets vérifiés avec succès');
     }
-
   } catch (e) {
-    print('❌ Erreur vérification assets: $e');
+    print(' Erreur vérification assets: $e');
   }
 }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Démarrer avec le splash screen
   runApp(const SplashApp());
 }
 
-// Application temporaire pour le splash screen
+
 class SplashApp extends StatelessWidget {
   const SplashApp({super.key});
 
@@ -57,12 +50,12 @@ class SplashApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      theme: ThemeData.dark(),
+      home: const SplashScreen(),
     );
   }
 }
 
-// Splash Screen avec le GIF
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -70,17 +63,28 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
   bool _initializationComplete = false;
   bool _minDurationPassed = false;
-  final int _minSplashDuration = 4000; // 4 secondes minimum
-  final int _maxSplashDuration = 6000; // 6 secondes maximum (sécurité)
+  final int _minSplashDuration = 3000;
+  final int _maxSplashDuration = 5000;
+  late AnimationController _pulseController;
+  late Animation<double> _pulseAnimation;
 
   @override
   void initState() {
     super.initState();
 
-    // Démarrer le timer pour la durée minimum
+    // Animation de pulsation
+    _pulseController = AnimationController(
+      duration: const Duration(milliseconds: 1500),
+      vsync: this,
+    )..repeat(reverse: true);
+
+    _pulseAnimation = Tween<double>(begin: 0.95, end: 1.05).animate(
+      CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
+    );
+
     Timer(Duration(milliseconds: _minSplashDuration), () {
       if (mounted) {
         setState(() {
@@ -90,28 +94,20 @@ class _SplashScreenState extends State<SplashScreen> {
       }
     });
 
-    // Timer de sécurité pour éviter que le splash reste trop longtemps
     Timer(Duration(milliseconds: _maxSplashDuration), () {
-      if (mounted && _initializationComplete) {
+      if (mounted && !_initializationComplete) {
         _navigateToMainApp();
       }
     });
 
-    // Initialiser l'application en arrière-plan
     _initializeApp();
   }
 
   Future<void> _initializeApp() async {
     try {
-      print('🔍 Vérification des assets...');
+      print('Initialisation de l\'application...');
       await checkAssets();
 
-      // Initialiser les services
-      final audioService = AudioPlayerService();
-      final localService = LocalMusicService();
-      await localService.initialize();
-
-      // Marquer l'initialisation comme terminée
       if (mounted) {
         setState(() {
           _initializationComplete = true;
@@ -119,8 +115,7 @@ class _SplashScreenState extends State<SplashScreen> {
         _checkAndNavigate();
       }
     } catch (e) {
-      print('❌ Erreur lors de l\'initialisation: $e');
-      // Même en cas d'erreur, on navigue vers l'app principale
+      print('Erreur lors de l\'initialisation: $e');
       if (mounted) {
         setState(() {
           _initializationComplete = true;
@@ -131,48 +126,55 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void _checkAndNavigate() {
-    // Naviguer seulement si la durée minimum est passée ET l'initialisation est terminée
     if (_minDurationPassed && _initializationComplete) {
       _navigateToMainApp();
     }
   }
 
   void _navigateToMainApp() {
-    // Initialiser les services pour l'app principale
-    final audioService = AudioPlayerService();
-    final localService = LocalMusicService();
-
-    // Naviguer vers l'app principale
     Future.delayed(Duration.zero, () {
       if (mounted) {
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => MultiProvider(
+          PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) => MultiProvider(
               providers: [
-                Provider<AudioPlayerService>.value(value: audioService),
-                Provider<LocalMusicService>.value(value: localService),
-
-                ChangeNotifierProxyProvider<LocalMusicService, HomeViewModel>(
-                  create: (context) => HomeViewModel(),
-                  update: (context, localService, homeViewModel) {
-                    homeViewModel ??= HomeViewModel();
+                Provider<AudioPlayerService>(
+                  create: (_) => AudioPlayerService(),
+                ),
+                Provider<LocalMusicService>(
+                  create: (_) => LocalMusicService(),
+                ),
+                Provider<MoodAnalyzer>(
+                  create: (_) => MoodAnalyzer(),
+                ),
+                ChangeNotifierProvider<HomeViewModel>(
+                  create: (context) {
+                    final homeViewModel = HomeViewModel();
                     homeViewModel.initialize();
                     return homeViewModel;
                   },
                 ),
-
-                ChangeNotifierProvider(
+                ChangeNotifierProvider<PlayerViewModel>(
                   create: (context) => PlayerViewModel(
                     context.read<AudioPlayerService>(),
                   ),
                 ),
-
-                ChangeNotifierProvider(
+                ChangeNotifierProvider<MoodViewModel>(
                   create: (context) => MoodViewModel(),
+                ),
+                ChangeNotifierProvider<TextAnalysisViewModel>(
+                  create: (context) => TextAnalysisViewModel(),
                 ),
               ],
               child: const MyApp(),
             ),
+            transitionDuration: const Duration(milliseconds: 500),
+            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+              return FadeTransition(
+                opacity: animation,
+                child: child,
+              );
+            },
           ),
         );
       }
@@ -180,70 +182,91 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   @override
+  void dispose() {
+    _pulseController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: Stack(
-        children: [
-          // GIF de fond
-          Container(
-            width: double.infinity,
-            height: double.infinity,
-            decoration: const BoxDecoration(
-              color: Colors.black,
-            ),
-            child: Image.asset(
-              'assets/gifs/splash.gif',
-              fit: BoxFit.cover,
-              gaplessPlayback: true,
-              errorBuilder: (context, error, stackTrace) {
-                // Fallback si le GIF ne charge pas
-                return Container(
-                  color: Colors.black,
-                  child: const Center(
-                    child: Text(
-                      'DJ MOOD',
-                      style: TextStyle(
-                        fontSize: 40,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ),
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Colors.deepPurple.shade900,
+              Colors.black,
+              Colors.deepPurple.shade800,
+            ],
           ),
+        ),
+        child: Stack(
+          children: [
+            // GIF de fond (si disponible)
+            Positioned.fill(
+              child: Image.asset(
+                'assets/gifs/splash.gif',
+                fit: BoxFit.cover,
+                gaplessPlayback: true,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(); // Fond transparent si pas de GIF
+                },
+              ),
+            ),
 
-          // Indicateur de chargement en bas
-          Positioned(
-            bottom: 50,
-            left: 0,
-            right: 0,
-            child: Column(
-              children: [
-                if (!_initializationComplete)
-                  const CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                  ),
-                const SizedBox(height: 20),
-                Text(
-                  _initializationComplete ? 'Prêt !' : 'Chargement...',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
+            // Overlay gradient
+            Positioned.fill(
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.transparent,
+                      Colors.black.withOpacity(0.7),
+                    ],
                   ),
                 ),
-              ],
+              ),
             ),
-          ),
-        ],
+
+            // Indicateur de chargement
+            Positioned(
+              bottom: 80,
+              left: 0,
+              right: 0,
+              child: Column(
+                children: [
+                  if (!_initializationComplete)
+                    CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        Colors.deepPurple.shade300,
+                      ),
+                      strokeWidth: 3,
+                    ),
+                  const SizedBox(height: 20),
+                  Text(
+                    _initializationComplete ? 'Prêt !' : 'Chargement...',
+                    style: TextStyle(
+                      color: Colors.grey[400],
+                      fontSize: 14,
+                      letterSpacing: 1,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
-// Application principale
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -254,23 +277,36 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
         scaffoldBackgroundColor: Colors.black,
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.black,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.black26,
           foregroundColor: Colors.white,
           elevation: 0,
+          centerTitle: false,
         ),
         textTheme: const TextTheme(
           bodyLarge: TextStyle(color: Colors.white),
           bodyMedium: TextStyle(color: Colors.white),
         ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.deepPurple.shade600,
+            foregroundColor: Colors.white,
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+        ),
         useMaterial3: true,
       ),
-      darkTheme: ThemeData.dark(),
+      darkTheme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: Colors.black,
+        primaryColor: Colors.deepPurple,
+      ),
       themeMode: ThemeMode.dark,
       initialRoute: '/',
       routes: {
         '/': (context) => const HomeView(),
-        '/mood': (context) => const MoodView(),
         '/player': (context) => const PlayerView(),
       },
       debugShowCheckedModeBanner: false,
